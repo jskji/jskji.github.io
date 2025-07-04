@@ -1,231 +1,145 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포트폴리오 - [당신의 이름]</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:400,500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --main-bg: #f6f8fc;
-            --card-bg: #fff;
-            --primary: #6c63ff;
-            --primary-dark: #5753c9;
-            --accent: #f67280;
-            --text: #22223b;
-            --muted: #a1a1a6;
-            --shadow: 0 4px 24px rgba(44, 62, 80, 0.07);
-            --radius: 18px;
-        }
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            background: var(--main-bg);
-            color: var(--text);
-            font-family: 'Roboto', 'Montserrat', Arial, sans-serif;
-            margin: 0;
-        }
-        header {
-            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
-            color: #fff;
-            padding: 70px 0 40px 0;
-            text-align: center;
-            position: relative;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
-        }
-        header h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3.2rem;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
-        }
-        header p {
-            font-size: 1.25rem;
-            margin: 0;
-            color: #e0e1ff;
-        }
-        main {
-            max-width: 960px;
-            margin: -40px auto 0 auto;
-            padding: 0 16px 40px 16px;
-        }
-        section {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 32px;
-            padding: 38px 38px 30px 38px;
-            animation: fadeInUp 0.7s;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        h2 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-top: 0;
-            margin-bottom: 26px;
-            border-left: 5px solid var(--accent);
-            padding-left: 12px;
-            letter-spacing: 1px;
-        }
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 28px;
-        }
-        .project {
-            background: linear-gradient(110deg, #f8fafc 60%, #f2f2ff 100%);
-            border-radius: 14px;
-            box-shadow: 0 2.5px 12px rgba(44,62,80,0.05);
-            padding: 22px 20px 18px 20px;
-            transition: transform 0.16s, box-shadow 0.16s;
-            border-left: 4px solid var(--primary);
-        }
-        .project:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 32px rgba(44,62,80,0.10);
-            border-left: 4px solid var(--accent);
-        }
-        .project h3 {
-            margin: 0 0 10px 0;
-            color: var(--accent);
-            font-size: 1.15rem;
-        }
-        .project p {
-            margin: 0 0 12px 0;
-            color: var(--text);
-        }
-        .project a {
-            color: var(--primary-dark);
-            font-weight: 500;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .project a:hover {
-            color: var(--accent);
-        }
-        .tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .tech-list li {
-            background: #e8eaf6;
-            color: var(--primary-dark);
-            border-radius: 7px;
-            padding: 5px 12px;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        .contact-info {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-        .contact-info a {
-            color: var(--primary-dark);
-            text-decoration: none;
-            margin-right: 16px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .contact-info a:hover {
-            color: var(--accent);
-        }
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid #fff;
-            box-shadow: 0 3px 15px rgba(44,62,80,0.09);
-            margin: 0 auto 16px auto;
-            display: block;
-        }
-        .intro {
-            text-align: center;
-        }
-        .intro strong {
-            color: var(--accent);
-        }
-        @media (max-width: 700px) {
-            main {
-                padding: 0 2vw 24px 2vw;
-            }
-            section {
-                padding: 16px 8vw 16px 8vw;
-            }
-            .project {
-                padding: 16px 8px 14px 12px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>학업성취도 평가결과표</title>
+  <style>
+    body {
+      font-family: 'Malgun Gothic', sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background-color: #fdfdfd;
+    }
+    h1 {
+      background-color: #9fb3d4;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .info, .score-table, .study-review, .signatures {
+      margin-top: 20px;
+    }
+    .info {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .graph {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .study-review td {
+      height: 60px;
+      text-align: left;
+    }
+    .signatures td {
+      padding-top: 30px;
+      height: 80px;
+    }
+    .school {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <img src="https://avatars.githubusercontent.com/u/00000000?v=4" alt="프로필 이미지" class="profile-img">
-        <h1>[당신의 이름]</h1>
-        <p>웹 개발자 | 프론트엔드 & 백엔드 | 창의적인 문제 해결사</p>
-    </header>
-    <main>
-        <section>
-            <h2>소개</h2>
-            <div class="intro">
-                안녕하세요! 저는 <strong>[당신의 이름]</strong>입니다.<br>
-                최신 웹 기술과 창의적인 아이디어로 사용자 경험을 극대화하는 것을 좋아합니다.<br>
-                다양한 실전 프로젝트 경험을 통해 성장중입니다.
-            </div>
-        </section>
-        <section>
-            <h2>프로젝트</h2>
-            <div class="projects">
-                <div class="project">
-                    <h3>프로젝트명 1</h3>
-                    <p>간단한 설명과 주요 기능, 사용 기술(예: React, Node.js 등)을 작성하세요.</p>
-                    <a href="#" target="_blank">자세히 보기 &rarr;</a>
-                </div>
-                <div class="project">
-                    <h3>프로젝트명 2</h3>
-                    <p>간단한 설명과 주요 기능, 사용 기술을 작성하세요.</p>
-                    <a href="#" target="_blank">자세히 보기 &rarr;</a>
-                </div>
-                <!-- 필요에 따라 프로젝트 항목을 추가하세요 -->
-            </div>
-        </section>
-        <section>
-            <h2>기술 스택</h2>
-            <ul class="tech-list">
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>TypeScript</li>
-                <li>React</li>
-                <li>Vue</li>
-                <li>Node.js</li>
-                <li>Express</li>
-                <li>Python</li>
-                <li>Django</li>
-                <li>Git / GitHub</li>
-                <!-- 필요에 따라 추가/수정 -->
-            </ul>
-        </section>
-        <section>
-            <h2>연락처</h2>
-            <div class="contact-info">
-                <span>이메일: <a href="mailto:your.email@example.com">your.email@example.com</a></span>
-                <span>GitHub: <a href="https://github.com/your-github-id" target="_blank">your-github-id</a></span>
-                <span>LinkedIn: <a href="https://linkedin.com/in/your-linkedin-id" target="_blank">your-linkedin-id</a></span>
-            </div>
-        </section>
-    </main>
+
+  <h1>학업성취도 평가결과표</h1>
+
+  <div class="info">
+    2025학년도 1학기<br>
+    3학년 1반 김예준
+  </div>
+
+  <p>
+    평가는 점수보다 중요한 것은 평소의 수업 태도를 돌아보고 평가를 위해 준비하는 과정을 확인해 보는 것입니다. 내 점수와 학년 평균 점수를 비교하면서 스스로 부족한 부분을 알고 나에게 맞는 공부 방법을 찾는 기회를 삼습니다.
+  </p>
+
+  <div class="score-table">
+    <table>
+      <thead>
+        <tr>
+          <th>과목</th>
+          <th>국어</th>
+          <th>과학</th>
+          <th>수학</th>
+          <th>영어</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>내 점수</th>
+          <td>92</td>
+          <td>92</td>
+          <td>87</td>
+          <td>90</td>
+        </tr>
+        <tr>
+          <th>학년 평균</th>
+          <td>91.8</td>
+          <td>87.1</td>
+          <td>78.3</td>
+          <td>77.5</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="graph">
+    <!-- 실제 그래프를 사용하려면 Chart.js 등을 활용하거나 이미지 사용 -->
+    <img src="https://via.placeholder.com/600x300?text=%EB%82%B4+%EC%A0%90%EC%88%98+vs+%ED%95%99%EB%85%84%ED%8F%89%EA%B7%A0+%EA%B7%B8%EB%9E%98%ED%94%84" alt="그래프">
+  </div>
+
+  <div class="study-review">
+    <h3>나의 공부 습관 돌아보기</h3>
+    <table>
+      <tr>
+        <th>평소 수업 태도</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th>효과 있었던 공부 방법</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th>고쳐야 하는 공부 방법</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th>나를 위한 한 마디</th>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="signatures">
+    <table>
+      <tr>
+        <td>선생님<br><br><br>구주현 (인)</td>
+        <td>부모님<br><br><br> (인)</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="school">
+    <img src="https://via.placeholder.com/80x80?text=%EA%B4%91%EC%9A%B4" alt="광운초등학교 로고"><br>
+    광운초등학교
+  </div>
+
 </body>
 </html>
