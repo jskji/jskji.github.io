@@ -1,145 +1,371 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>학업성취도 평가결과표</title>
-  <style>
-    body {
-      font-family: 'Malgun Gothic', sans-serif;
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-      background-color: #fdfdfd;
-    }
-    h1 {
-      background-color: #9fb3d4;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .info, .score-table, .study-review, .signatures {
-      margin-top: 20px;
-    }
-    .info {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    th, td {
-      border: 1px solid #aaa;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f0f0f0;
-    }
-    .graph {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .study-review td {
-      height: 60px;
-      text-align: left;
-    }
-    .signatures td {
-      padding-top: 30px;
-      height: 80px;
-    }
-    .school {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 30px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학업 성취도 평가 결과표</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            color: #333;
+        }
+        .header {
+            background-color: #e0f2f7; /* Light blue */
+            padding: 15px 0;
+            text-align: center;
+            position: relative;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #b3e5fc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #2196f3; /* Blue */
+            letter-spacing: 1px;
+        }
+        .subheader {
+            text-align: right;
+            margin-top: -10px; /* Adjust to move closer to header */
+            padding-right: 10px;
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+        .info-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+        .info-box strong {
+            color: #d32f2f; /* Red */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        table th {
+            background-color: #e3f2fd; /* Light blue */
+            font-weight: bold;
+            color: #333;
+        }
+        table td {
+            background-color: #ffffff;
+        }
+        .table-header-row th {
+            background-color: #bbdefb !important; /* Slightly darker blue for the top row */
+        }
+        .bar-chart-container {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #fcfcfc;
+            position: relative;
+        }
+        .chart-legend {
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .chart-legend span {
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .chart-legend .color-box {
+            width: 15px;
+            height: 10px;
+            margin-right: 5px;
+            display: inline-block;
+        }
+        .chart-legend .red { background-color: #d32f2f; } /* Red */
+        .chart-legend .blue { background-color: #2196f3; } /* Blue */
+
+        .chart {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 200px;
+            border-left: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            padding-left: 5px;
+            position: relative;
+        }
+        .chart-y-axis {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 100%;
+            width: 30px; /* Space for labels */
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            font-size: 10px;
+            text-align: right;
+            transform: translateX(-100%); /* Position outside the chart area */
+        }
+        .chart-y-axis div {
+            height: calc(100% / 10); /* 10 intervals from 0-100 */
+            line-height: 0; /* Adjust line height for vertical alignment */
+        }
+        .chart-bar-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            width: 15%;
+            margin: 0 5px;
+        }
+        .chart-bar {
+            width: 40%;
+            margin: 0 2%;
+            background-color: #2196f3; /* Blue */
+            position: relative;
+            bottom: 0;
+        }
+        .chart-bar.red {
+            background-color: #d32f2f; /* Red */
+        }
+        .chart-label {
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Specific bar heights based on values */
+        .bar-guk-my { height: 92%; }
+        .bar-guk-avg { height: 91.8%; }
+        .bar-sci-my { height: 92%; }
+        .bar-sci-avg { height: 87.1%; }
+        .bar-math-my { height: 87%; }
+        .bar-math-avg { height: 78.3%; }
+        .bar-eng-my { height: 90%; }
+        .bar-eng-avg { height: 77.5%; }
+
+        .study-habits-section {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .study-habits-section h3 {
+            margin-top: 0;
+            font-size: 16px;
+            text-align: center;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .study-habits-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .study-habits-section li {
+            border-bottom: 1px solid #eee;
+            padding: 8px 0;
+            display: flex;
+        }
+        .study-habits-section li:last-child {
+            border-bottom: none;
+        }
+        .study-habits-section li strong {
+            width: 120px;
+            flex-shrink: 0;
+            font-size: 13px;
+            color: #555;
+        }
+        .study-habits-section li span {
+            flex-grow: 1;
+            min-height: 20px; /* Ensure space for empty lines */
+            border-bottom: 1px dotted #ccc; /* Dotted line for user input */
+        }
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        .signature-item {
+            display: flex;
+            align-items: baseline;
+        }
+        .signature-item strong {
+            margin-right: 10px;
+        }
+        .signature-line {
+            border-bottom: 1px solid #333;
+            width: 120px;
+            text-align: center;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        .signature-seal {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 2px solid red;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 26px;
+            color: red;
+            font-weight: bold;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .footer-logo {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
+        }
+        .footer-logo img {
+            height: 24px; /* Adjust as needed */
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
 
-  <h1>학업성취도 평가결과표</h1>
+    <div class="header">
+        <h1>학업 성취도 평가 결과표</h1>
+    </div>
+    <div class="subheader">
+        <span>2025학년도</span>
+        <span style="border: 1px solid #ccc; padding: 2px 5px; margin-left: 10px; background-color: #ffe0b2;">1학기</span>
+    </div>
 
-  <div class="info">
-    2025학년도 1학기<br>
-    3학년 1반 김예준
-  </div>
+    <div class="info-box">
+        평가 점수보다 중요한 것은 평소의 수업 태도를 돌아보고 평가를 위해 준비하는 과정을 확인해 보는 <br>
+        것입니다. 내 점수와 학년 평균 점수를 비교하면서 스스로 <strong>부족한 부분</strong>을 알고 나에게 맞는 공부 방법을 <br>
+        찾는 기회로 삼으십시오.
+    </div>
 
-  <p>
-    평가는 점수보다 중요한 것은 평소의 수업 태도를 돌아보고 평가를 위해 준비하는 과정을 확인해 보는 것입니다. 내 점수와 학년 평균 점수를 비교하면서 스스로 부족한 부분을 알고 나에게 맞는 공부 방법을 찾는 기회를 삼습니다.
-  </p>
-
-  <div class="score-table">
     <table>
-      <thead>
-        <tr>
-          <th>과목</th>
-          <th>국어</th>
-          <th>과학</th>
-          <th>수학</th>
-          <th>영어</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>내 점수</th>
-          <td>92</td>
-          <td>92</td>
-          <td>87</td>
-          <td>90</td>
-        </tr>
-        <tr>
-          <th>학년 평균</th>
-          <td>91.8</td>
-          <td>87.1</td>
-          <td>78.3</td>
-          <td>77.5</td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr class="table-header-row">
+                <th colspan="2"></th>
+                <th colspan="4">3학년 1반 &nbsp;&nbsp;&nbsp; 김예준</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>과목</th>
+                <th>국어</th>
+                <th>과학</th>
+                <th>수학</th>
+                <th>영어</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2">내용</td>
+                <td>내 점수</td>
+                <td>92</td>
+                <td>92</td>
+                <td>87</td>
+                <td>90</td>
+            </tr>
+            <tr>
+                <td>학년평균</td>
+                <td>91.8</td>
+                <td>87.1</td>
+                <td>78.3</td>
+                <td>77.5</td>
+            </tr>
+        </tbody>
     </table>
-  </div>
 
-  <div class="graph">
-    <!-- 실제 그래프를 사용하려면 Chart.js 등을 활용하거나 이미지 사용 -->
-    <img src="https://via.placeholder.com/600x300?text=%EB%82%B4+%EC%A0%90%EC%88%98+vs+%ED%95%99%EB%85%84%ED%8F%89%EA%B7%A0+%EA%B7%B8%EB%9E%98%ED%94%84" alt="그래프">
-  </div>
+    <div class="bar-chart-container">
+        <div class="chart-legend">
+            <span><span class="color-box blue"></span> 내 점수</span>
+            <span><span class="color-box red"></span> 학년평균</span>
+        </div>
+        <div class="chart">
+            <div class="chart-y-axis">
+                <div>100</div>
+                <div>90</div>
+                <div>80</div>
+                <div>70</div>
+                <div>60</div>
+                <div>50</div>
+                <div>40</div>
+                <div>30</div>
+                <div></div> <div></div> <div>0</div>
+            </div>
+            <div class="chart-bar-group">
+                <div class="chart-bar blue bar-guk-my"></div>
+                <div class="chart-bar red bar-guk-avg"></div>
+                <div class="chart-label">국어</div>
+            </div>
+            <div class="chart-bar-group">
+                <div class="chart-bar blue bar-sci-my"></div>
+                <div class="chart-bar red bar-sci-avg"></div>
+                <div class="chart-label">과학</div>
+            </div>
+            <div class="chart-bar-group">
+                <div class="chart-bar blue bar-math-my"></div>
+                <div class="chart-bar red bar-math-avg"></div>
+                <div class="chart-label">수학</div>
+            </div>
+            <div class="chart-bar-group">
+                <div class="chart-bar blue bar-eng-my"></div>
+                <div class="chart-bar red bar-eng-avg"></div>
+                <div class="chart-label">영어</div>
+            </div>
+        </div>
+    </div>
 
-  <div class="study-review">
-    <h3>나의 공부 습관 돌아보기</h3>
-    <table>
-      <tr>
-        <th>평소 수업 태도</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>효과 있었던 공부 방법</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>고쳐야 하는 공부 방법</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>나를 위한 한 마디</th>
-        <td></td>
-      </tr>
-    </table>
-  </div>
+    <div class="study-habits-section">
+        <h3>나의 공부 습관 돌아보기</h3>
+        <p style="text-align: center; font-size: 12px; margin-top: -10px; margin-bottom: 15px; color: #777;">
+            (빨다 : 무엇을 얻으려고 살살이 끓어며 찾아보다.)
+        </p>
+        <ul>
+            <li><strong>평소 수업 태도</strong><span></span></li>
+            <li><strong>효과있던 공부 방법</strong><span></span></li>
+            <li><strong>고쳐야 하는 공부 방법</strong><span></span></li>
+            <li><strong>나를 위한 한 마디</strong><span></span></li>
+        </ul>
+    </div>
 
-  <div class="signatures">
-    <table>
-      <tr>
-        <td>선생님<br><br><br>구주현 (인)</td>
-        <td>부모님<br><br><br> (인)</td>
-      </tr>
-    </table>
-  </div>
+    <div class="signature-section">
+        <div class="signature-item">
+            <strong>선생님</strong>
+            <span class="signature-line">구주현</span>
+            <span class="signature-seal">인</span>
+        </div>
+        <div class="signature-item">
+            <strong>부모님</strong>
+            <span class="signature-line"></span>
+            <span class="signature-seal">인</span>
+        </div>
+    </div>
 
-  <div class="school">
-    <img src="https://via.placeholder.com/80x80?text=%EA%B4%91%EC%9A%B4" alt="광운초등학교 로고"><br>
-    광운초등학교
-  </div>
+    <div class="footer-logo">
+        <img src="https://via.placeholder.com/24x24?text=LOGO" alt="광운초등학교 로고">
+        광운초등학교
+    </div>
 
 </body>
 </html>
